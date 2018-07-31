@@ -50,7 +50,7 @@
 using namespace dlib;
 using namespace std;
 
-const char pShapePredictor[] = "shape_predictor_68_face_landmarks.dat";
+const char pShapePredictor[] = "/home/dan/eclipse-workspace/dlibExample/shape_predictor_68_face_landmarks.dat";
 /**
 **You can get the shape_predictor_68_face_landmarks.dat file from:
 ** "http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2"
