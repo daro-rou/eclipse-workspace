@@ -84,7 +84,10 @@ int main(int argc, char** argv)
 		array2d<matrix<float, 31, 1> > fhog;
         // Loop over all the images provided on the command line.
 		dg::img_type img;
-        for (unsigned int i = 1; i < movie.getNumOfFrames(); ++i)
+		char cmd;
+		unsigned int i = 1;
+        //for (unsigned int i = 1; i < movie.getNumOfFrames(); ++i)
+		while(i < movie.getNumOfFrames())
         {
             cout << "processing frame: " << i << endl;
 			movie.getFrameAt(i, img);
@@ -132,15 +135,28 @@ int main(int argc, char** argv)
             win.add_overlay(dets, rgb_pixel(255,0,0));
 			// Now let's view our face poses on the screen.
 			win.add_overlay(render_face_detections(shapes));
-            cout << "Hit enter to process the next image..." << endl;
-            cin.get();
-        }
+			cout << "Hit enter to process the next image, b+<enter>: back, q+<enter>: quit"
+					<< endl;
+			cmd = 0;
+			cin.get(cmd);
+			if ('b' == cmd) {
+				cin.get();
+				if (i > 1)
+					--i;
+			} else if ('q' == cmd) {
+				break;
+			} else {
+				++i;
+			}
+
+		}
     }
     catch (exception& e)
     {
         cout << "\nexception thrown!" << endl;
         cout << e.what() << endl;
     }
+    cout<<"Good-bye cruel world!!"<<endl;
 }
 
 // ----------------------------------------------------------------------------------------
