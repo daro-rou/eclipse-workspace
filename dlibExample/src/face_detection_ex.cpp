@@ -145,7 +145,10 @@ int main(int argc, char** argv)
 					--i;
 			} else if ('q' == cmd) {
 				break;
-			} else {
+			} else if('g'==cmd){
+            	cin>>i;
+            	cin.get();
+            }else {
 				++i;
 			}
 

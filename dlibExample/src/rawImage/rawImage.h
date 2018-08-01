@@ -45,8 +45,17 @@ public:
   
 
 private:
+  class wrongIndex: public std::exception
+  {
+  public:
+	  virtual const char* what(){
+		  return "index out of range";
+	  }
+  };
   void seek(uint32 index)
   {
+	  if (index<1 || index> m_numElements)
+		  throw wrongIndex();
 	  long int pos =(index-1)*m_height*m_width;
 	  fseek(imgFile, pos, SEEK_SET);
   }
