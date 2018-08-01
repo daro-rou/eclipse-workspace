@@ -54,7 +54,8 @@ void dg::RawImage::getFrameAt(uint32 index, uint8 *img) {
   //assert(index < m_numElements);
 
   size_t num = (m_width * m_height);
-  size_t result = fread(img, 1, num, imgFile);
+  seek(index);
+  size_t result = fread(img, sizeof(uint8), num, imgFile);
   if (result != m_width * m_height)
   {
 	  fputs("Can not read file.\n", stderr);
@@ -65,7 +66,8 @@ void dg::RawImage::getFrameAt(uint32 index, uint8 *img) {
 void dg::RawImage::getFrameAt(uint32 index, dg::img_type& img) {
 	size_t num = (m_width * m_height);
 	img.set_size(m_height, m_width);
-	size_t result = fread(img.begin(), 1, num, imgFile);
+	seek(index);
+	size_t result = fread(img.begin(), sizeof(uint8), num, imgFile);
 	if (result != m_width * m_height)
 	{
 		fputs("Can not read file.\n", stderr);

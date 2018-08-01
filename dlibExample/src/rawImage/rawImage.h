@@ -45,6 +45,11 @@ public:
   
 
 private:
+  void seek(uint32 index)
+  {
+	  long int pos =(index-1)*m_height*m_width;
+	  fseek(imgFile, pos, SEEK_SET);
+  }
   /**
   * Read raw file
   */
