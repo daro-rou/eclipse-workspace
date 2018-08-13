@@ -11,7 +11,7 @@
 
 dg::RawImage::RawImage(const char *file, uint16 w, uint16 h)
     : m_filename(file), m_width(w), m_height(h) {
-  imgFile = fopen(m_filename, "rb");
+  imgFile = fopen(m_filename.c_str(), "rb");
   if (imgFile == NULL)
   {
 	  fputs("File does not exist.\n", stderr);
@@ -36,7 +36,7 @@ dg::RawImage::RawImage(const char *file,const char *cameraType)
 		m_width=1280;
 	}
 
-	imgFile = fopen(m_filename, "rb");
+	imgFile = fopen(m_filename.c_str(), "rb");
 	if (imgFile == NULL)
 	{
 		fputs("File does not exist.\n", stderr);
@@ -73,4 +73,16 @@ void dg::RawImage::getFrameAt(uint32 index, dg::img_type& img) {
 		fputs("Can not read file.\n", stderr);
 		exit(3);
 	}
+}
+
+void dg::RawImage::saveFrame(uint32 index,dg::img_type& img){
+
+	std::stringstream fileName(std::string(m_filename),std::ios_base::out|std::ios_base::ate);
+	fileName<<"_"<<index;
+	std::ofstream outfile (fileName.str().c_str(),std::ofstream::binary);
+	outfile.write((const char*)img.begin(),img.size());
+	std::cout<<fileName.str().c_str()<<" was saved"<<std::endl;
+	outfile.flush();
+	outfile.close();
+
 }

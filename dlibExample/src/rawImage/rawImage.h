@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <vector>
 #include <fstream>
+#include <string>
 #include "dlib/array2d.h"
 
 namespace dg {
@@ -39,6 +40,7 @@ public:
   void getFrameAt(uint32 index, uint8 *img);
   void getFrameAt(uint32 index, img_type& img);
 
+  void saveFrame(uint32 index, img_type& img);
   uint32 getNumOfFrames() const { return m_numElements; }
   uint16 getHeight() const { return m_height; }
   uint16 getWidth() const { return m_width; }
@@ -64,14 +66,15 @@ private:
   */
   boolean_t readRawFile();
 
+  std::string m_filename;
   uint16 m_width;
   uint16 m_height;
   
   FILE *imgFile;
 	
   uint32 m_numElements;
-public:
-	const char *m_filename;
+
+
 	
 };
 }

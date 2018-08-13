@@ -49,7 +49,7 @@
 
 using namespace dlib;
 using namespace std;
-
+#define SHOW_IMG	1
 const char pShapePredictor[] = "/home/dan/eclipse-workspace/dlibExample/shape_predictor_68_face_landmarks.dat";
 /**
 **You can get the shape_predictor_68_face_landmarks.dat file from:
@@ -77,17 +77,21 @@ int main(int argc, char** argv)
 		// as a command line argument.
 		shape_predictor sp;
 		deserialize(pShapePredictor) >> sp;
-
-        image_window win;
-		image_window hogwin(draw_fhog(detector), " fHOG detector");
+        //image_window win;
+#if defined (SHOW_FHOG_FEATURE)
+        image_window hogwin(draw_fhog(detector), " fHOG detector");
 		//fhog fetature
 		array2d<matrix<float, 31, 1> > fhog;
         // Loop over all the images provided on the command line.
+#endif
+#if defined (SHOW_IMG)
+		image_window win;
+#endif
 		dg::img_type img;
 		char cmd;
 		unsigned int i = 1;
         //for (unsigned int i = 1; i < movie.getNumOfFrames(); ++i)
-		while(i < movie.getNumOfFrames())
+		while(i <= movie.getNumOfFrames())
         {
             cout << "processing frame: " << i << endl;
 			movie.getFrameAt(i, img);
@@ -130,11 +134,13 @@ int main(int argc, char** argv)
 			}
             // Now we show the image on the screen and the face detections as
             // red overlay boxes.
-            win.clear_overlay();
+#if defined (SHOW_IMG)
+			win.clear_overlay();
             win.set_image(img);
             win.add_overlay(dets, rgb_pixel(255,0,0));
 			// Now let's view our face poses on the screen.
 			win.add_overlay(render_face_detections(shapes));
+#endif
 			cout << "Hit enter to process the next image, b+<enter>: back, q+<enter>: quit"
 					<< endl;
 			cmd = 0;
@@ -148,6 +154,9 @@ int main(int argc, char** argv)
 			} else if('g'==cmd){
             	cin>>i;
             	cin.get();
+            }else if('s'==cmd){
+            	cin.get();
+            	movie.saveFrame(i, img);;
             }else {
 				++i;
 			}

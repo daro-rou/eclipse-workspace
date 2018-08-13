@@ -109,7 +109,6 @@
 									<listOptionValue builtIn="false" value="DLIB_JPEG_SUPPORT"/>
 									<listOptionValue builtIn="false" value="DLIB_PNG_SUPPORT"/>
 									<listOptionValue builtIn="false" value="DLIB__CMAKE_GENERATED_A_CONFIG_H_FILE"/>
-									<listOptionValue builtIn="false" value="DLIB_CHECK_FOR_VERSION_MISMATCH=DLIB_VERSION_MISMATCH_CHECK__EXPECTED_VERSION_19_14_0"/>
 									<listOptionValue builtIn="false" value="DLIB_JPEG_STATIC"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.dialect.flags.901338662" name="Other dialect flags" superClass="gnu.cpp.compiler.option.dialect.flags" useByScannerDiscovery="true" value="-std=gnu++11" valueType="string"/>
