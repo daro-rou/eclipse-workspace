@@ -80,13 +80,12 @@ int main(int argc, char** argv)
         //image_window win;
 #if defined (SHOW_FHOG_FEATURE)
         image_window hogwin(draw_fhog(detector), " fHOG detector");
-		//fhog fetature
-		array2d<matrix<float, 31, 1> > fhog;
-        // Loop over all the images provided on the command line.
 #endif
+
 #if defined (SHOW_IMG)
 		image_window win;
 #endif
+
 		dg::img_type img;
 		char cmd;
 		unsigned int i = 1;
@@ -108,6 +107,8 @@ int main(int argc, char** argv)
 			// process a larger image.
 			// pyramid_up(img);
 #if defined (SHOW_FHOG_FEATURE)
+			//fhog fetature
+			array2d<matrix<float, 31, 1> > fhog;
 			//extract the fhog feature
 			extract_fhog_features(img, fhog);
 			cout << "fhog image has " << fhog.nr() << " rows and " << fhog.nc() << " columns." << endl;
@@ -117,6 +118,11 @@ int main(int argc, char** argv)
             // around all the faces it can find in the image.
             std::vector<rectangle> dets = detector(img);
             cout << "Number of faces detected: " << dets.size() << endl;
+            for(int i=0;i<dets.size();++i){
+            	cout<<"left="<<dets[i].left()<<", bottom="<<dets[i].bottom();
+            	cout<<", right="<<dets[i].right()<<", top="<<dets[i].top()<<endl;
+            }
+
 			// Now we will go ask the shape_predictor to tell us the pose of
 			// each face we detected.
 			std::vector<full_object_detection> shapes;
